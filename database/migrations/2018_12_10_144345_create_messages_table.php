@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateConnectionRequestTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateConnectionRequestTable extends Migration
      */
     public function up()
     {
-        Schema::create('connection_request', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('content');
             $table->timestamps();
-			$table->string('status');
+			
         });
     }
 
@@ -27,6 +28,6 @@ class CreateConnectionRequestTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('connection_request');
+        Schema::dropIfExists('messages');
     }
 }
