@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('reviews', 'ReviewController');
+
+    Route::get('/factory', function() {
+        return view('factory');
+    })->name('factory');
+
+    Route::get('/app', function() {
+        return view('layouts.app');
+    })->name('app');
+});

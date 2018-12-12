@@ -15,6 +15,7 @@ class CreateFilmProfilesTable extends Migration
     {
         Schema::create('film_profiles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
 			$table->string('favourite_film');
             $table->string('favourite_character');
             $table->string('favorite_genre');

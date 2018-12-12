@@ -1,0 +1,30 @@
+﻿1. Service container: là nơi quản lý class dependencies và thực hiện dependency injection nhờ PHP Reflection API, chỉ cần bind 1 class, interface là có thể resolve ở bất cứ đâu
+Dependency injection tức là: các dependencies của class sẽ được injected vào trong class thông qua hàm khởi tạo hoặc setter. Nếu một class A hoạt động phụ thuộc vào class khác thì thay vì khởi tạo các instance của nó trong class A ta sẽ injecte những instance đó thông qua constructor và setter
+Tác dụng:
+- Giảm sự ràng buộc giữa các module
+- code dễ bảo trì và thay thế
+- dễ dàng thấy quan hệ giữa các module
+Binding: thao tác lấy một instance từ container, 3 loại
+    • singleton binding:khi chỉ muốn class hay interface mình đăng ký một lần duy nhất
+    • instances binding: có sẵn instance, bind nó vào container và resolve sẽ nhận chính instance đó
+    • interface binding: khi inject interface vào constructor của 1 class thì tự động inject các implement của nó vì vậy có dễ dàng thay đổi implementation mong muốn
+2. Service provider: trung tâm khởi tạo tất cả ứng dụng trong laravel, là nơi thực hiện khai báo service và bind vào trong service container (binding trong mảng providers trong app.php)
+- việc binding được viết trong hàm register()
+- $defer=true: quá trình binding ko được thực hiện khi service không được gọi
+- phương thức boot(): sẽ được gọi khi tất cả service provider được đăng ký xong (vd: đăng ký view composer)
+3. Facades: cho phép truy cập các hàm bên trong các service bằng cách gọi hàm static
+các register trong alias đều là các facade
+- làm việc với Auth facade thực tế là làm việc với service auth trong service container
+- việc gọi hàm static thực tế được xử lý trong magic method __callStatic
+- Good:
++ không phải khởi tạo hay resolve instance từ service container
++ ko chiếm bộ nhớ
++ code gọn gàng
+- Bad:
++ không hiểu bản chất của hàm
++ che đi hàm, class cần một service dependencies thứ mà thay vì inject thì đã được resolve ra thông qua Facade
+4. Constract: bản chất là một interface, khai báo các core services cung cấp bởi framework, như một bản tài liệu cho các chức năng của framework
+- Mã nguồn không bị phục thuộc vào bất cứ package nào
+- contracts của package không chứa bất kì triển khai hay dependencies =>  thay đổi triển khai mà ko thay đổi mã nguồn
+- Good: Một class không nên phụ thuộc vào một class khác mà chỉ nên phụ thuộc vào interface
+

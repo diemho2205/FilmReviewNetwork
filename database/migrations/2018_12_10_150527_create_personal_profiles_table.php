@@ -15,6 +15,7 @@ class CreatePersonalProfilesTable extends Migration
     {
         Schema::create('personal_profiles', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('username')->unique();
             $table->string('avatar')
                 ->unique()
