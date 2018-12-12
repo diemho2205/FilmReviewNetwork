@@ -15,6 +15,8 @@ class CreateConnectionRequestsTable extends Migration
     {
         Schema::create('connection_requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('from_id');
+            $table->integer('to_id');
             $table->tinyInteger('status');
             $table->timestamps();
         });
