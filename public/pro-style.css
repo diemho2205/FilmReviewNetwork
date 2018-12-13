@@ -1,0 +1,98 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+.row{
+    height: fit-content;
+    background: white;
+}
+.col-sm-7 {
+    background: white;
+    height: 600px;
+    margin-top: 5%;
+    margin-left: 20%;
+    padding: 0 !important;
+}
+
+.title-box{
+    background-position: center;
+}
+
+.avatar{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 3px;
+}
+
+h4{
+    padding: 8px 0px 0px;
+    position: absolute;
+    margin-left: 10px;
+}
+/*cai dau trang*/
+.title-inf-box{
+    background: rgb(68, 67, 67);
+    height: 50px;
+    background-position: center;
+    position: relative;
+}
+
+.infor-box{
+    height: 50px;
+}
+
+h5{
+    margin-top: 0 !important;
+    color: white !important;
+}
+/*thong tin*/
+h6{
+    color: rgb(0, 0, 0);
+    text-align: left;
+    margin-left: 30px;
+    font-size: 14px !important;
+    margin-top: 23px !important;
+    position: absolute;
+}
+.infor{
+    /* background: rgb(255, 255, 255); */
+    /* height: 40px; */
+    background-position: center;
+    border-bottom: 1px solid rgb(219, 219, 219);
+    margin-left: 150px;
+    border-radius: 10px;
+}
+/*radio button*/
+.radio-infor{
+    /* background: rgb(255, 255, 255); */
+    height: 40px;
+    background-position: center;
+    margin-left: 150px;
+    margin-top: 10px;
+}
+/*---------------------------------------------------------------------*/
+.posi-box{
+    margin-left: 150px;
+    margin-top: 20px;
+}
+
+/*input address*/
+.title-box input{
+    border: none;
+    outline: none;
+    background: none;
+    margin-top: 16px;
+    margin-left: 10px;
+}
+/*--------------------------------------------------------------------*/
+.margin-box{
+    margin-top: 30px !important;
+}
+
+/*---------------------------------------------------------------------*/
+.button-box{
+    margin-left: 600px;
+    margin-top: 40px;
+}
+
+
+

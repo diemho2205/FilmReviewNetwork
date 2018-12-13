@@ -1,8 +1,8 @@
 $(document).ready(function() {
 	var showChar = 300;
-	var ellipsestext = "...";
-	var moretext = "Show more";
-    var lesstext = "less";
+	var ellipsestext = '...';
+	var moretext = 'Show more';
+    var lesstext = 'less';
     
 	$('.more').each(function() {
 		var content = $(this).html();
@@ -19,12 +19,12 @@ $(document).ready(function() {
 
 	});
 
-	$(".morelink").click(function(){
-		if($(this).hasClass("less")) {
-			$(this).removeClass("less");
+	$('.morelink').click(function(){
+		if($(this).hasClass('less')) {
+			$(this).removeClass('less');
 			$(this).html(moretext);
 		} else {
-			$(this).addClass("less");
+			$(this).addClass('less');
 			$(this).html(lesstext);
 		}
 		$(this).parent().prev().toggle();
@@ -32,35 +32,26 @@ $(document).ready(function() {
 		return false;
     });
             
-    $("#like-btn").click(function() {
-        if ($(this).get(0).style.color == 'red') {
-            $(this).css('color', 'black');
-            alert('dislike');
-        } else {
-            // $(this).get(0).style.color = "red";
-            $(this).css('color', 'red');
-            alert('like');
-        }
-    })
     
-    $("#comment-btn").click(function() {
-        $("#comment-content").focus();
+    $('.comment-btn').click(function() {
+		reviewId = $(this).attr('data-id');
+        $('.comment-content'+reviewId).focus();
     })
 
-	$("#comment-content").keypress(function (e) {
+	$('.comment-textarea').keypress(function (e) {
+		reviewId = $(this).attr('data-id');
 		if(e.which == 13 && !e.shiftKey) {        
-			$("commentForm").submit();
-			alert('You submitted successfully!');
-			// e.preventDefault();
+			$('#commentForm'+reviewId).submit();
+			
 			return false;
 		}
     });
 
-	$("#review-content").click(function(){
-        $("#formModal").modal();
+	$('#review-content').click(function(){
+        $('#formModal').modal();
     });
 
-    $("#add-review").click(function(){
-        $("#formModal").modal();
+    $('#add-review').click(function(){
+        $('#formModal').modal();
     });
 });

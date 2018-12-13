@@ -10,6 +10,8 @@ class Like extends Model
 {
     protected $fillable = [
         'is_disliked',
+        'user_id',
+        'review_id',
     ];
 
     public function user() {
