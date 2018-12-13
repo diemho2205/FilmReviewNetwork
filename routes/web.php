@@ -17,11 +17,29 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('reviews', 'ReviewController');
 
-    Route::get('/factory', function() {
-        return view('factory');
-    })->name('factory');
+    Route::group(['as' => 'review.', 'prefix' => 'review/'], function() {
+        Route::resource('likes', 'LikeController');
+        Route::resource('comments', 'CommentController');
+    });
+
+    Route::resource('connects', 'ConnectionRequestController');
+
+    Route::post('/accept/{id}', 'ConnectionRequestController@accept')->name('connects.accept');
+
+    Route::get('/factory', ['uses' => 'ReviewController@reviewsForAuth'])->name('factory');
+
+    Route::get('/connect', ['uses' => 'ConnectionRequestController@index'])->name('connect');
 
     Route::get('/app', function() {
         return view('layouts.app');
     })->name('app');
+
+    Route::post('/comment', ['uses' => 'ReviewController@comment']);
+
+    Route::post('/like', ['uses' => 'ReviewController@like']);
+
+    Route::get('/profile/{id}', [
+        'uses' => 'ProfileController@edit',
+        'as' => 'profile.edit'
+    ]);
 });

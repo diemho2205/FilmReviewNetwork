@@ -1,35 +1,66 @@
-<div class="w3-col m2">
+<div class="w3-col m2 w3-center">
     <h4 style="font-weight: bold; text-align: center; margin-bottom: 5px;">New Request</h4>
     <hr style="margin: 10px 0">
-    <div class="w3-card w3-round w3-white w3-center" style="padding: 20px 10px">
-        <div class="w3-container">
-            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Avatar" style="width:50%"><br>
-            <p>Jane Doe</p>
-            <p><a href="">View Profile</a></p>
-            <div class="w3-row w3-opacity">
-                <div class="w3-half">
-                    <button class="w3-button w3-block w3-green w3-section" title="Accept"><i class="fa fa-check"></i></button>
-                </div>
-                <div class="w3-half">
-                    <button class="w3-button w3-block w3-red w3-section" title="Decline"><i class="fa fa-remove"></i></button>
+    @if (count($newRequests) > 0)
+        @foreach ($newRequests as $newRequest)
+        <div class="w3-card w3-round w3-white w3-center" style="padding: 10px 5px; margin-bottom: 10px">
+            <div class="w3-container">
+                <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Avatar" style="width:50%"><br>
+                <p>{{ $newRequest->receiver->id }}</p>
+                <p><a href="">View Profile</a></p>
+                <div class="w3-row w3-opacity">
+                    <div class="w3-half">
+                        <form action="{{ route('connects.accept', $newRequest->id) }}" method="POST">
+                            @csrf
+                
+                            <button type="submit" class="w3-button w3-block w3-green w3-section accept-button">
+                                    <i class="fa fa-check"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="w3-half">
+                        <button
+                            data-id="{{ $newRequest->id }}"
+                            class="w3-button w3-block w3-red w3-section reject-button"
+                        >
+                            <i class="fa fa-remove"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+        @endforeach
+    @else
+        <p>No new requests</p>
+    @endif
+    
     <br>
+    <hr style="margin: 10px 0">
     <h4 style="font-weight: bold; text-align: center; margin-bottom: 5px;">Friend suggestions</h4>
     <hr style="margin: 10px 0">
-    <div class="w3-card w3-round w3-white w3-center" style="padding: 20px 10px">
-        <div class="w3-container">
-            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Avatar" style="width:50%"><br>
-            <p>Jane Doe</p>
-            <p><a href="">View Profile</a></p>
-            <div class="w3-row w3-opacity">
-                <div class="w3-half">
-                    <button style="margin: 0 40px" class="w3-button w3-block w3-green w3-section" title="Contact">Contact</button>
+    @if (count($suggestedUsers) > 0)
+        @foreach ($suggestedUsers as $suggestedUser)
+        <div class="w3-card w3-round w3-white w3-center" style="padding: 20px 10px">
+                <div class="w3-container">
+                    <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Avatar" style="width:50%"><br>
+                    <p>{{ $suggestedUser->id }}</p>
+                    <p><a href="">View Profile</a></p>
+                    <div class="w3-row w3-opacity">
+                        <div class="w3-half">
+                            <button
+                                style="margin: 0 40px"
+                                class="w3-button w3-block w3-green w3-section contact-button"
+                                title="Contact"
+                                data-id="{{ $suggestedUser->id }}"
+                                id="contact{{ $suggestedUser->id }}"
+                            >Contact</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <br>
+        @endforeach
+    @else
+        <p>No suggested friends</p>
+    @endif
+    
 </div>

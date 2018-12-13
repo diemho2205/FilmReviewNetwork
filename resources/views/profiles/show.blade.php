@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Serif+TC" rel="stylesheet">
-    <link rel="stylesheet" href="css/home.css">
+    {{-- <link rel="stylesheet" href="css/home.css"> --}}
+    <link rel="stylesheet" type="text/css" href="pro-style.css">
 </head>
 <body class="w3-theme-l5">
 <div class="w3-top  w3-theme-d2">
@@ -127,14 +128,60 @@
 <!-- Page Container -->
 <div style="max-width:1400px;">    
 	<div class="w3-row">
-            @include('layouts.leftside')
-            <div class="w3-col m7">
-                @include('layouts.middle')
-                @yield('main')
+        <div class="w3-col m7" style=" margin: 0 25%;">
+            <div class="row" style="margin: 0 20px 0 20px">
+                <div class="title-inf-box">
+                    <img src="profile.png" class="avatar">
+                    <h5 style="display: inline;">Update your information to find people with similar interests.</h5>
+                </div>
             </div>
-            <div id="right-side">
-                @include('layouts.rightside')
+            <div class="row" style="padding: 20px 30px; margin: 0 20px 20px 20px">
+                <div class="title-box infor-box">
+                    <img src="user.png" class="avatar">
+                    <h4 style="display: inline;">Personal Information</h4>
+                </div>
+                <h6>Gender</h6>
+                <div class="title-box radio-infor">
+                    <input type="radio" name="gender" value="male" checked> Male<br>
+                    <input type="radio" name="gender" value="female"> Female<br>
+                </div>
+                
+                <h6>Address</h6>
+                <div class="title-box infor">
+                    <input type="text" value="{{ $user->personalProfile->address }}" name="address">
+                </div>
+        
+                <h6>Birthday</h6>
+                <div class="posi-box">
+                    <input type="date" value="{{ $user->personalProfile->birthday }}" name="birthday">
+                </div>
+        
+                <div class="title-box infor-box margin-box">
+                    <img src="film.png" class="avatar">
+                    <h4 style="display: inline;">Film Favorite Information</h4>
+                </div>
+                <h6>Favorite Film</h6>
+                <div class="title-box infor">
+                    <input type="text" value="{{ $user->filmProfile->favorite_film }}" name="favorite_film">
+                </div>
+                <h6>Favorite Character</h6>
+                <div class="title-box infor">
+                    <input type="text" value="{{ $user->filmProfile->favorite_character }}" name="favorite_character">
+                </div>
+                <h6>Favorite Genre</h6>
+                <div class="title-box infor">
+                    <input type="text" value="{{ $user->filmProfile->favorite_genre }}" name="favorite_genre">
+                </div>
+                <h6>Feeling</h6>
+                <div class="title-box infor">
+                    <input type="text" value="{{ $user->filmProfile->feeling }}" name="feeling">
+                </div>
+
+                <div class="w3-right" style="margin-top: 10px">
+                    <button style="background-color: #7d97a5; margin-right: 60px" class="btn-info w3-button" type="submit" name="">Save</button>
+                </div>
             </div>
+        </div>
 	</div>
 </div>
 
