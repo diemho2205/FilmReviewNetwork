@@ -70,4 +70,16 @@ class User extends Authenticatable
     public function receivedMessages() {
         return $this->hasMany(Message::class, 'to_id');
     }
+
+    public function getNumOfFriendsAttribute() {
+        $friends = User::whereHas('sentConnectionRequests', function ($query) {
+            $query->where('status', ConnectionRequest::ACCEPTED)
+                ->where('to_id', $this->id);
+        })->orWhereHas('receivedConnectionRequests', function ($query) {
+            $query->where('status', ConnectionRequest::ACCEPTED)
+                ->where('from_id', $this->id);
+        })->where('id', '<>', $this->id)->get();
+
+        return count($friends);
+    }
 }

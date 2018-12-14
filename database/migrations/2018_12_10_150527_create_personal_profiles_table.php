@@ -18,7 +18,6 @@ class CreatePersonalProfilesTable extends Migration
             $table->integer('user_id');
             $table->string('username')->unique();
             $table->string('avatar')
-                ->unique()
                 ->default('img/avatar/default.png');
             $table->string('address')->nullable();
             $table->string('phone',10)->nullable();

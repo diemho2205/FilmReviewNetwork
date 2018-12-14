@@ -5,12 +5,12 @@
 @foreach ($reviews as $review)
 	<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 		<img
-			src="https://www.w3schools.com/w3images/avatar2.png"
+			src={{ asset(($review->user->personalProfile->avatar) ? Auth::user()->personalProfile->avatar : 'avatar.png' ) }}
 			alt="Avatar" class="w3-left w3-circle w3-margin-right"
 			style="width:60px"
 		>
 		<span class="w3-right w3-opacity">{{ $review->created_at }}</span>
-		<h4>Diem Ho</h4><br>
+		<h4>{{ $review->user->personalProfile->username }}</h4><br>
 		<hr class="w3-clear">
 		<div
 			class="row row-film"

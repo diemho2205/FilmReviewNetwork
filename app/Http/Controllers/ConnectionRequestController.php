@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\ConnectionRequest;
 use App\User;
 use App\Review;
+use Illuminate\Support\Facades\Auth;
 
 class ConnectionRequestController extends Controller
 {
@@ -29,9 +30,11 @@ class ConnectionRequestController extends Controller
             ->get();
 
         $friends = User::whereHas('sentConnectionRequests', function ($query) {
-            $query->where('status', ConnectionRequest::ACCEPTED);
+            $query->where('status', ConnectionRequest::ACCEPTED)
+                ->where('to_id', Auth::id());
         })->orWhereHas('receivedConnectionRequests', function ($query) {
-            $query->where('status', ConnectionRequest::ACCEPTED);
+            $query->where('status', ConnectionRequest::ACCEPTED)
+                ->where('from_id', Auth::id());
         })->where('id', '<>', $request->user()->id)->get();
 
         return view('connect', compact('reviews', 'suggestedUsers', 'newRequests', 'friends'));
@@ -115,11 +118,15 @@ class ConnectionRequestController extends Controller
         $connectionRequest = ConnectionRequest::find($id);
         $connectionRequest->delete();
 
-        $sentUsers = ConnectionRequest::pluck('to_id');
-        $suggestedUsers = User::where('id', '<>', $request->user()->id)
-            ->whereNotIn('id', $sentUsers)
+        $suggestedUsers = User::whereDoesntHave('sentConnectionRequests', function ($query) {
+            $query->where('to_id', Auth::id());
+        })->whereDoesntHave('receivedConnectionRequests', function($query) {
+            $query->where('from_id', Auth::id());
+        })->where('id', '<>', $request->user()->id)->get();
+        
+        $newRequests = ConnectionRequest::where('to_id', $request->user()->id)
+            ->where('status', ConnectionRequest::SENT)
             ->get();
-        $newRequests = ConnectionRequest::where('to_id', $request->user()->id)->get();
 
         return view('layouts.rightside', compact('suggestedUsers', 'newRequests'));
     }
