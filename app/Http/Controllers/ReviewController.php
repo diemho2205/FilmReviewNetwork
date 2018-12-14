@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Review;
 use App\Like;
-use App\Http\Requests\StoreReview;
 use App\User;
 use App\ConnectionRequest;
 
@@ -26,11 +25,12 @@ class ReviewController extends Controller
             ->whereNotIn('id', $receivedUsers)
             ->get();
 
+        dd($suggestedUsers);
+
         $newRequests = ConnectionRequest::where('to_id', $request->user()->id)
             ->where('status', ConnectionRequest::SENT)
             ->get();
-
-
+        // dd($request->user()->filmProfile->favourite_film);
         return view('home', compact('reviews', 'suggestedUsers', 'newRequests'));
     }
 
@@ -50,7 +50,7 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreReview $request)
+    public function store(Request $request)
     {
         $poster = $request->file('poster');
 
@@ -154,7 +154,33 @@ class ReviewController extends Controller
 
     public function reviewsForAuth(Request $request) {
         $reviews = Review::with('comments')->where('user_id', $request->user()->id)->latest()->get();
+        $sentUsers = ConnectionRequest::pluck('to_id');
+        $receivedUsers = ConnectionRequest::pluck('from_id');
+        $suggestedUsers = User::where('id', '<>', $request->user()->id)
+            ->whereNotIn('id', $sentUsers)
+            ->whereNotIn('id', $receivedUsers)
+            ->get();
 
-        return view('factory', compact('reviews'));
+        $newRequests = ConnectionRequest::where('to_id', $request->user()->id)
+            ->where('status', ConnectionRequest::SENT)
+            ->get();
+
+        return view('factory', compact('reviews', 'suggestedUsers', 'newRequests'));
+    }
+
+    public function reviewsForUser(Request $request, $id) {
+        $reviews = Review::with('comments')->where('user_id', $id)->latest()->get();
+        $sentUsers = ConnectionRequest::pluck('to_id');
+        $receivedUsers = ConnectionRequest::pluck('from_id');
+        $suggestedUsers = User::where('id', '<>', $request->user()->id)
+            ->whereNotIn('id', $sentUsers)
+            ->whereNotIn('id', $receivedUsers)
+            ->get();
+
+        $newRequests = ConnectionRequest::where('to_id', $request->user()->id)
+            ->where('status', ConnectionRequest::SENT)
+            ->get();
+
+        return view('factory', compact('reviews', 'suggestedUsers', 'newRequests'));
     }
 }

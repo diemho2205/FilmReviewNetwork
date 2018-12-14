@@ -5,33 +5,33 @@
 @foreach ($reviews as $review)
 	<div class="w3-container w3-card w3-white w3-round w3-margin"><br>
 		<img
-			src="https://www.w3schools.com/w3images/avatar2.png"
+			src={{ asset(($review->user->personalProfile->avatar) ? Auth::user()->personalProfile->avatar : 'avatar.png' ) }}
 			alt="Avatar" class="w3-left w3-circle w3-margin-right"
 			style="width:60px"
 		>
 		<div class="w3-dropdown-hover w3-hide-small w3-right">
-				<button style="padding: 8px 5px !important;" class="w3-button" title="Notifications"><i class="fa fa-align-right" aria-hidden="true"></i></span></button>     
-				<div style="right: 0; left: auto;" class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:250px">
-					<a href={{ route('reviews.edit', $review->id) }} class="w3-bar-item w3-button">Edit my review</a>
-					<form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
-						{{ csrf_field() }}
-						{{ method_field('DELETE') }}
-			
-						<button type="submit" class="w3-bar-item w3-button">
-							Delete my review
-						</button>
-					</form>
-				</div>
+			<button style="padding: 8px 5px !important;" class="w3-button" title="Notifications"><i class="fa fa-align-right" aria-hidden="true"></i></span></button>     
+			<div style="right: 0; left: auto;" class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:250px">
+				<a href={{ route('reviews.edit', $review->id) }} class="w3-bar-item w3-button">Edit my review</a>
+				<form action="{{ route('reviews.destroy', $review->id) }}" method="POST">
+					{{ csrf_field() }}
+					{{ method_field('DELETE') }}
+		
+					<button type="submit" class="w3-bar-item w3-button">
+						Delete my review
+					</button>
+				</form>
 			</div>
-			<h4>John Doe</h4>
-			<span class="w3-opacity">1 min</span>
+		</div>
+		<h4>{{ $review->user->personalProfile->username }}</h4>
+		<span class="w3-opacity">{{ $review->created_at }}</span>
 		<hr class="w3-clear">
 		<div
 			class="row row-film"
 			style="margin: 10px; border: 1px solid #ddd; border-radius: 4px; background-color: #ddd"
 		>
 				<div class="col-sm-6" style="padding: 0;">
-					<img style="width: 100%; height: 200px;" src="avatar/{{ $review->poster }}" />
+					<img style="width: 100%; height: 200px;" src={{ asset('avatar/'.$review->poster) }} />
 				</div>
 				<div class="col-sm-6">
 				<h3 style="margin: 5px 0; padding: 5px 0; font-style: italic">{{ $review->name }}</h3>

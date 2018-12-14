@@ -8,8 +8,8 @@ use App\User;
 class FilmProfile extends Model
 {
     protected $fillable = [
-        'favorite_film',
-        'favorite_character',
+        'favourite_film',
+        'favourite_character',
         'favorite_genre',
         'feeling',
     ];
