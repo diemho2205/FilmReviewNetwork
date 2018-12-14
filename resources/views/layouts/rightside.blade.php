@@ -5,9 +5,9 @@
         @foreach ($newRequests as $newRequest)
         <div class="w3-card w3-round w3-white w3-center" style="padding: 10px 5px; margin-bottom: 10px">
             <div class="w3-container">
-                <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Avatar" style="width:50%"><br>
-                <p>{{ $newRequest->receiver->id }}</p>
-                <p><a href="">View Profile</a></p>
+                <img src={{ asset($newRequest->sender->personalProfile->avatar) }} alt="Avatar" style="width:50%"><br>
+                <p>{{ $newRequest->sender->personalProfile->username }}</p>
+                <p><a href="{{ route('user.factory', $newRequest->sender->id) }}">View Profile</a></p>
                 <div class="w3-row w3-opacity">
                     <div class="w3-half">
                         <form action="{{ route('connects.accept', $newRequest->id) }}" method="POST">
@@ -42,8 +42,8 @@
         @foreach ($suggestedUsers as $suggestedUser)
         <div class="w3-card w3-round w3-white w3-center" style="padding: 20px 10px">
                 <div class="w3-container">
-                    <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Avatar" style="width:50%"><br>
-                    <p>{{ $suggestedUser->id }}</p>
+                    <img src={{ asset($suggestedUser->personalProfile->avatar) }} alt="Avatar" style="width:50%"><br>
+                    <p>{{ $suggestedUser->personalProfile->username }}</p>
                     <p><a href="">View Profile</a></p>
                     <div class="w3-row w3-opacity">
                         <div class="w3-half">

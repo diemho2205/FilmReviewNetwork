@@ -16,10 +16,10 @@ class CreateFilmProfilesTable extends Migration
         Schema::create('film_profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-			$table->string('favourite_film');
-            $table->string('favourite_character');
-            $table->string('favorite_genre');
-            $table->string('feeling');
+			$table->string('favourite_film')->default('Enter your favorite film');
+            $table->string('favourite_character')->default('Enter your favorite character');
+            $table->string('favorite_genre')->default('Enter your favorite genre');
+            $table->string('feeling')->default('Enter your feeling');
             $table->timestamps();
         });
     }

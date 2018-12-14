@@ -4,28 +4,17 @@
 <div class="row">
     @if (count($friends))
         @foreach ($friends as $friend)
-            <div class="column w3-center">
-                <img src="https://www.w3schools.com/w3images/avatar2.png" style="width:40%" alt="Avatar">
+            <div class="column w3-center" style="padding: 10px">
+                <img src={{ asset($friend->personalProfile->avatar) }} style="width:40%" alt="Avatar">
                 <hr style="margin: 10px 0">
-                <p><a href="">{{ $friend->id }}</a></p>
-                <p st><i class="fa fa-users" aria-hidden="true"></i> 500 <i class="fa fa-pencil" aria-hidden="true"></i> 25</p>
+                <p><a href="{{ route('user.factory', $friend->id) }}">{{ $friend->personalProfile->username }}</a></p>
+                <p>
+                    <i class="fa fa-users" aria-hidden="true"></i> {{ $friend->num_of_friends }}
+                    <i class="fa fa-pencil" aria-hidden="true"></i> {{ count($friend->reviews) }}
+                </p>
             </div>
         @endforeach
     @else
-        
+        <p>There are no friends ...</p>
     @endif
-    {{-- <div class="column w3-center">
-        <img src="https://www.w3schools.com/w3images/avatar2.png" style="width:40%" alt="Avatar">
-        <hr style="margin: 10px 0">
-        <p><a href="">Diem Ho</a></p>
-        <p st><i class="fa fa-users" aria-hidden="true"></i> 500 <i class="fa fa-pencil" aria-hidden="true"></i> 25</p>
-    </div>
-    <div class="column w3-center">
-        <h2>Column 2</h2>
-        <p>Some text..</p>
-    </div>
-    <div class="column w3-center">
-        <h2>Column 3</h2>
-        <p>Some text..</p>
-    </div> --}}
 </div>

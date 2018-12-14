@@ -30,10 +30,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/connect', ['uses' => 'ConnectionRequestController@index'])->name('connect');
 
-    Route::get('/app', function() {
-        return view('layouts.app');
-    })->name('app');
-
     Route::post('/comment', ['uses' => 'ReviewController@comment']);
 
     Route::post('/like', ['uses' => 'ReviewController@like']);
@@ -41,5 +37,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/profile/{id}', [
         'uses' => 'ProfileController@edit',
         'as' => 'profile.edit'
+    ]);
+
+    Route::post('/profile/{id}', [
+        'uses' => 'ProfileController@update',
+        'as' => 'profile.update'
+    ]);
+
+    Route::get('/profile/user/{id}', [
+        'uses' => 'ReviewController@reviewsForUser',
+        'as' => 'user.factory'
     ]);
 });
